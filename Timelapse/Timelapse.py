@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-EXPOSURE_POWER_MIN = 10
-EXPOSURE_POWER_MAX = 21
+EXPOSURE_POWER_MIN = 5 # .0000002 second
+EXPOSURE_POWER_MAX = 21 # 2 seconds
 GAIN = 1.0
 WHITE_BALANCE = 4100
 DIOPTER = 0.0
@@ -26,13 +26,15 @@ def expose(n, exposure, gain, focus, white_balance):
    print command
    phone.execute('/usr/bin/killall -9 viewfinder')
    phone.execute(command)
-   phone.get('/home/user/frame.jpg', destination_dir + '/' + str(n) + '-' + str(unix_time()) + '.jpg')
+   phone.get('/home/user/frame.jpg', destination_dir + '/' + str(unix_time()) + '-' + str(n) + '.jpg')
    phone.close()
 	    
 
 if __name__ == "__main__":
+
    interval = sys.argv[1]
    print "Taking bracketed exposures every " + str(interval) + " seconds"
+
 
    n = 0
    while True:
