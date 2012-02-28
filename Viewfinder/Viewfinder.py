@@ -12,10 +12,10 @@ q = Queue.Queue(maxsize=0)
 
 class Expose():
 
-    def GET(self, exposure, gain, focus, white_balance, no_cache_salt):
+    def GET(self, exposure, gain, diopter, white_balance, no_cache_salt):
 
 	    phone = ssh.Connection(host='192.168.2.15', username='user', password='user')
-	    command = '/opt/viewfinder/bin/viewfinder %s %s %s %s' % (exposure, gain, focus, white_balance)
+	    command = '/opt/viewfinder/bin/viewfinder %s %s %s %s' % (exposure, gain, diopter, white_balance)
 	    print command
 	    phone.execute('killall -9 viewfinder')
 	    phone.execute(command)
@@ -37,12 +37,12 @@ class index:
         return file('static/index.html')
 
 class set_params:
-    def GET(self, exposure, gain, focus, white_balance):
+    def GET(self, exposure, gain, diopter, white_balance):
 
         params = {}
         params['exposure']      = exposure
         params['gain']          = gain
-        params['focus']         = focus
+        params['diopter']       = diopter
         params['white_balance'] = white_balance
 
         print params

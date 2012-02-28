@@ -1,25 +1,27 @@
 params = {
-   exposure: 50000,
+   exposurePower: 17,
    gain: 1.0,
-   focusDistance: 0.2,
+   diopter: 0.0,
    whiteBalance: 4100,
 };
 
 
 function setParams(value) {
   salt = new Date();
-  $('#buffer0').attr('src', '/expose/'+params.exposure+'/'+params.gain+'/'+params.focusDistance+'/'+params.whiteBalance+'/'+salt);
+  $('#buffer0').attr('src', '/expose/'+Math.pow(2, params.exposurePower)+'/'+params.gain+'/'+params.diopter+'/'+params.whiteBalance+'/'+salt);
 };
 
 
 
 window.onload = function() {
   var gui = new dat.GUI({width: '40'});
-  gui.add(params, 'exposure', 0, 500000).onFinishChange(setParams);
+  gui.add(params, 'exposurePower', 0.0, 21.0).onFinishChange(setParams);
   gui.add(params, 'gain', 1.0, 32.0).onFinishChange(setParams);
-  gui.add(params, 'focusDistance', 0.05, 1.0).onFinishChange(setParams);
-  gui.add(params, 'whiteBalance', 0, 6000).onFinishChange(setParams);
+  gui.add(params, 'diopter', 0.0, 10.0).onFinishChange(setParams);
+  gui.add(params, 'whiteBalance', 0, 7000).onFinishChange(setParams);
 
+
+  setParams();
   //$('#buffer0').css('display': 'none');
 
 /*  $('#buffer0').load(function() {
